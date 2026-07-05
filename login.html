@@ -23,31 +23,40 @@
         e disputar o ranking.
       </p>
 
-      <form class="auth-form">
+      <form class="auth-form" data-auth-form>
         <label>
           Nome
-          <input type="text" placeholder="Ex: Thiago" />
+          <input data-name type="text" placeholder="Ex: Thiago" autocomplete="name" />
         </label>
 
         <label>
           E-mail
-          <input type="email" placeholder="seuemail@gmail.com" />
+          <input data-email type="email" placeholder="seuemail@gmail.com" autocomplete="email" />
         </label>
 
         <label>
           Senha
-          <input type="password" placeholder="Digite sua senha" />
+          <input data-password type="password" placeholder="Digite sua senha" autocomplete="current-password" />
         </label>
 
-        <button type="button" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
           Criar conta / Entrar
         </button>
+
+        <div data-feedback class="auth-feedback"></div>
       </form>
 
       <small>
-        Em breve, esta tela será conectada ao Firebase Authentication.
+        Use nome, e-mail e senha para criar conta. Depois disso, use os mesmos dados para entrar.
       </small>
     </section>
   </main>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>
