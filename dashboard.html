@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dashboard | Arena Bolão</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <main class="dashboard">
+    <header class="dashboard-header">
+      <div>
+        <span class="badge">Arena Bolão</span>
+        <h1 data-user-name>Carregando...</h1>
+        <p>Bem-vindo ao seu painel de jogador.</p>
+      </div>
+
+      <button class="btn btn-secondary" data-logout>Sair</button>
+    </header>
+
+    <section class="dashboard-grid">
+      <article class="dashboard-card highlight">
+        <span>🏆</span>
+        <h2>Sua posição</h2>
+        <strong>#--</strong>
+        <p>Ranking será liberado na próxima etapa.</p>
+      </article>
+
+      <article class="dashboard-card">
+        <span>⚽</span>
+        <h2>Jogos</h2>
+        <p>Veja os jogos e registre seus palpites.</p>
+      </article>
+
+      <article class="dashboard-card">
+        <span>📊</span>
+        <h2>Ranking</h2>
+        <p>Acompanhe a classificação em tempo real.</p>
+      </article>
+
+      <article class="dashboard-card">
+        <span>🔥</span>
+        <h2>Conquistas</h2>
+        <p>Medalhas e estatísticas dos participantes.</p>
+      </article>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script src="js/firebase.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
