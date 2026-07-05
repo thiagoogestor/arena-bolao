@@ -91,24 +91,31 @@ form.addEventListener("submit", async function (event) {
 const googleButton = document.querySelector("[data-google-login]");
 
 googleButton.addEventListener("click", async function () {
-  showFeedback("Abrindo login do Google...", "info");
+  showFeedback("Redirecionando para o Google...", "info");
 
   const provider = new firebase.auth.GoogleAuthProvider();
 
   try {
-    const result = await auth.signInWithPopup(provider);
-    const user = result.user;
-
-    await createUserProfile(user, user.displayName || "Jogador");
-
-    showFeedback("Login com Google realizado!", "success");
-
-    setTimeout(() => {
-      window.location.href = "dashboard.html";
-    }, 800);
-
-} catch (error) {
-  console.error(error);
-  showFeedback(`Erro Google: ${error.code}`, "error");
-}
+    await auth.signInWithRedirect(provider);
+  } catch (error) {
+    console.error(error);
+    showFeedback(`Erro Google: ${error.code}`, "error");
+  }
 });
+
+auth.getRedirectResult()
+  .then(async function (result) {
+    if (result.user) {
+      await createUserProfile(result.user, result.user.displayName || "Jogador");
+
+      showFeedback("Login com Google realizado!", "success");
+
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 800);
+    }
+  })
+  .catch(function (error) {
+    console.error(error);
+    showFeedback(`Erro Google: ${error.code}`, "error");
+  });
