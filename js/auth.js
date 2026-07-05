@@ -87,3 +87,27 @@ form.addEventListener("submit", async function (event) {
     }
   }
 });
+
+const googleButton = document.querySelector("[data-google-login]");
+
+googleButton.addEventListener("click", async function () {
+  showFeedback("Abrindo login do Google...", "info");
+
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  try {
+    const result = await auth.signInWithPopup(provider);
+    const user = result.user;
+
+    await createUserProfile(user, user.displayName || "Jogador");
+
+    showFeedback("Login com Google realizado!", "success");
+
+    setTimeout(() => {
+      window.location.href = "dashboard.html";
+    }, 800);
+
+  } catch (error) {
+    showFeedback("Não foi possível entrar com Google.", "error");
+  }
+});
