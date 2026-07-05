@@ -3,28 +3,37 @@ const nameInput = document.querySelector("[data-name]");
 const emailInput = document.querySelector("[data-email]");
 const passwordInput = document.querySelector("[data-password]");
 const feedback = document.querySelector("[data-feedback]");
+const googleButton = document.querySelector("[data-google-login]");
 
 function showFeedback(message, type = "info") {
+  if (!feedback) return;
   feedback.textContent = message;
   feedback.className = `auth-feedback ${type}`;
 }
 
 async function createUserProfile(user, name) {
   const userRef = db.ref(`users/${user.uid}`);
-
   const snapshot = await userRef.once("value");
 
   if (!snapshot.exists()) {
     await userRef.set({
       uid: user.uid,
-      name: name,
+      name: name || user.displayName || "Jogador",
       email: user.email,
+      photoURL: user.photoURL || "",
       role: "player",
       points: 0,
       createdAt: Date.now()
     });
   }
 }
+
+auth.onAuthStateChanged(async function (user) {
+  if (user) {
+    await createUserProfile(user, user.displayName || nameInput?.value || "Jogador");
+    window.location.href = "dashboard.html";
+  }
+});
 
 form.addEventListener("submit", async function (event) {
   event.preventDefault();
@@ -47,51 +56,22 @@ form.addEventListener("submit", async function (event) {
 
   try {
     const login = await auth.signInWithEmailAndPassword(email, password);
-
     await createUserProfile(login.user, name);
-
-    showFeedback("Login realizado com sucesso!", "success");
-
-    setTimeout(() => {
-      window.location.href = "dashboard.html";
-    }, 800);
-
+    window.location.href = "dashboard.html";
   } catch (loginError) {
     try {
       const register = await auth.createUserWithEmailAndPassword(email, password);
-
       await createUserProfile(register.user, name);
-
-      showFeedback("Conta criada com sucesso!", "success");
-
-      setTimeout(() => {
-        window.location.href = "dashboard.html";
-      }, 800);
-
+      window.location.href = "dashboard.html";
     } catch (registerError) {
-      let message = "Não foi possível entrar. Verifique seus dados.";
-
-      if (registerError.code === "auth/email-already-in-use") {
-        message = "Este e-mail já existe. Verifique a senha.";
-      }
-
-      if (registerError.code === "auth/invalid-email") {
-        message = "Digite um e-mail válido.";
-      }
-
-      if (registerError.code === "auth/weak-password") {
-        message = "A senha está fraca. Use pelo menos 6 caracteres.";
-      }
-
-      showFeedback(message, "error");
+      console.error(registerError);
+      showFeedback(`Erro: ${registerError.code}`, "error");
     }
   }
 });
 
-const googleButton = document.querySelector("[data-google-login]");
-
 googleButton.addEventListener("click", async function () {
-  showFeedback("Redirecionando para o Google...", "info");
+  showFeedback("Entrando com Google...", "info");
 
   const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -102,20 +82,3 @@ googleButton.addEventListener("click", async function () {
     showFeedback(`Erro Google: ${error.code}`, "error");
   }
 });
-
-auth.getRedirectResult()
-  .then(async function (result) {
-    if (result.user) {
-      await createUserProfile(result.user, result.user.displayName || "Jogador");
-
-      showFeedback("Login com Google realizado!", "success");
-
-      setTimeout(() => {
-        window.location.href = "dashboard.html";
-      }, 800);
-    }
-  })
-  .catch(function (error) {
-    console.error(error);
-    showFeedback(`Erro Google: ${error.code}`, "error");
-  });
