@@ -107,7 +107,8 @@ googleButton.addEventListener("click", async function () {
       window.location.href = "dashboard.html";
     }, 800);
 
-  } catch (error) {
-    showFeedback("Não foi possível entrar com Google.", "error");
-  }
+} catch (error) {
+  console.error(error);
+  showFeedback(`Erro Google: ${error.code}`, "error");
+}
 });
