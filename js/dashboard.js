@@ -223,33 +223,60 @@ async function loadUserArenas() {
 
   list.innerHTML = "<p>Buscando suas Arenas...</p>";
 
-  const arenasSnapshot = await db.ref("arenas").once("value");
-  const arenas = arenasSnapshot.val() || {};
+  try {
+    const membershipsSnapshot = await db.ref("memberships").once("value");
+    const memberships = membershipsSnapshot.val() || {};
 
-  const userArenas = Object.values(arenas).filter(function (arena) {
-    return arena.ownerId === currentUser.uid;
-  });
+    const arenaIds = Object.keys(memberships).filter(function (arenaId) {
+      return memberships[arenaId][currentUser.uid];
+    });
 
-  if (!userArenas.length) {
+    if (!arenaIds.length) {
+      list.innerHTML = `
+        <div class="empty-state small">
+          <h3>Nenhuma Arena criada ainda.</h3>
+          <p>Crie sua primeira Arena e comece a reunir sua galera.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const arenaPromises = arenaIds.map(function (arenaId) {
+      return db.ref(`arenas/${arenaId}`).once("value");
+    });
+
+    const arenaSnapshots = await Promise.all(arenaPromises);
+
+    const arenas = arenaSnapshots
+      .map(function (snapshot) {
+        return snapshot.val();
+      })
+      .filter(Boolean);
+
+    list.innerHTML = arenas.map(function (arena) {
+      return `
+        <article class="arena-card">
+          <div>
+            <span class="eyebrow">Arena ativa</span>
+            <h3>${arena.name}</h3>
+            <p>Agora esse é o lugar onde sua galera vai competir.</p>
+          </div>
+
+          <button class="btn btn-secondary">
+            Abrir Arena
+          </button>
+        </article>
+      `;
+    }).join("");
+
+  } catch (error) {
+    console.error(error);
+
     list.innerHTML = `
       <div class="empty-state small">
-        <h3>Nenhuma Arena criada ainda.</h3>
-        <p>Crie sua primeira Arena e comece a montar sua competição.</p>
+        <h3>Não conseguimos buscar suas Arenas.</h3>
+        <p>Verifique as regras do Firebase e tente novamente.</p>
       </div>
     `;
-    return;
   }
-
-  list.innerHTML = userArenas.map(function (arena) {
-    return `
-      <article class="arena-card">
-        <div>
-          <span class="eyebrow">Arena ativa</span>
-          <h3>${arena.name}</h3>
-          <p>Você é o dono desta Arena.</p>
-        </div>
-        <button class="btn btn-secondary">Abrir</button>
-      </article>
-    `;
-  }).join("");
 }
