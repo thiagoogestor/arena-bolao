@@ -1,59 +1,146 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Dashboard | Arena Bolão</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="css/style.css" />
+    <title>Arena Bolão</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
-  <main class="dashboard">
-    <header class="dashboard-header">
-      <div>
-        <span class="badge">Arena Bolão</span>
-        <h1 data-user-name>Carregando...</h1>
-        <p>Bem-vindo ao seu painel de jogador.</p>
-      </div>
 
-      <button class="btn btn-secondary" data-logout>Sair</button>
-    </header>
+<div class="app-shell">
 
-    <section class="dashboard-grid">
-      <article class="dashboard-card highlight">
-        <span>🏆</span>
-        <h2>Sua posição</h2>
-        <strong>#--</strong>
-        <p>Ranking será liberado na próxima etapa.</p>
-      </article>
+    <!-- SIDEBAR -->
 
-      <article class="dashboard-card">
-        <span>⚽</span>
-        <h2>Jogos</h2>
-        <p>Veja os jogos e registre seus palpites.</p>
-      </article>
+    <aside class="sidebar">
 
-      <article class="dashboard-card">
-        <span>📊</span>
-        <h2>Ranking</h2>
-        <p>Acompanhe a classificação em tempo real.</p>
-      </article>
+        <div class="sidebar-logo">
 
-      <article class="dashboard-card">
-        <span>🔥</span>
-        <h2>Conquistas</h2>
-        <p>Medalhas e estatísticas dos participantes.</p>
-      </article>
-    </section>
-  </main>
+            <div class="logo-circle">
+                ⚽
+            </div>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+            <div>
 
-  <script src="js/firebase.js"></script>
-  <script src="js/dashboard.js"></script>
+                <h2>Arena Bolão</h2>
+
+                <small>Versão MVP</small>
+
+            </div>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <button class="menu-item active" data-route="home">
+                🏠
+                <span>Início</span>
+            </button>
+
+            <button class="menu-item" data-route="arenas">
+                🏟
+                <span>Minhas Arenas</span>
+            </button>
+
+            <button class="menu-item" data-route="games">
+                ⚽
+                <span>Jogos</span>
+            </button>
+
+            <button class="menu-item" data-route="ranking">
+                🏆
+                <span>Ranking</span>
+            </button>
+
+            <button class="menu-item" data-route="profile">
+                👤
+                <span>Perfil</span>
+            </button>
+
+        </nav>
+
+        <button class="logout-button" data-logout>
+
+            Sair
+
+        </button>
+
+    </aside>
+
+    <!-- CONTEÚDO -->
+
+    <main class="content">
+
+        <!-- TOPO -->
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="subtitle">
+
+                    Bem-vindo de volta
+
+                </span>
+
+                <h1 data-user-name>
+
+                    Carregando...
+
+                </h1>
+
+            </div>
+
+            <div class="user-box">
+
+                <div class="avatar" data-user-avatar>
+
+                    T
+
+                </div>
+
+                <span data-user-short-name>
+
+                    Jogador
+
+                </span>
+
+            </div>
+
+        </header>
+
+        <!-- ÁREA DINÂMICA -->
+
+        <section
+            id="app"
+            class="page-content"
+            data-app-content>
+
+            Carregando aplicação...
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script src="js/firebase.js"></script>
+
+<script src="js/dashboard.js"></script>
+
 </body>
+
 </html>
