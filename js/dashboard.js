@@ -248,10 +248,20 @@ async function loadUserArenas() {
     const arenaSnapshots = await Promise.all(arenaPromises);
 
     const arenas = arenaSnapshots
-      .map(function (snapshot) {
-        return snapshot.val();
-      })
-      .filter(Boolean);
+    .map(function(snapshot){
+
+        if(!snapshot.exists()) return null;
+
+        return {
+
+            id: snapshot.key,
+
+            ...snapshot.val()
+
+        };
+
+    })
+    .filter(Boolean);
 
     list.innerHTML = arenas.map(function (arena) {
       return `
@@ -262,9 +272,13 @@ async function loadUserArenas() {
             <p>Agora esse é o lugar onde sua galera vai competir.</p>
           </div>
 
-          <button class="btn btn-secondary">
-            Abrir Arena
-          </button>
+          <a
+    href="arena.html?id=${arena.id}"
+    class="btn btn-primary">
+
+    ⚽ Entrar
+
+</a>
         </article>
       `;
     }).join("");
