@@ -1,114 +1,66 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Arena | Arena Bolão</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Arena</title>
-
-<link rel="stylesheet"
-href="css/style.css">
-
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+  <main class="arena-detail-page">
+    <header class="arena-detail-header">
+      <a href="dashboard.html" class="back-button">← Minhas Arenas</a>
 
-<div class="arena-page">
+      <span class="eyebrow">🏟 Arena</span>
 
-<header class="arena-header">
+      <h1 data-arena-name>Carregando...</h1>
 
-<a href="dashboard.html"
-class="back-button">
+      <p>
+        Esse é o lugar onde sua galera vai disputar cada jogo.
+      </p>
+    </header>
 
-← Minhas Arenas
+    <section class="arena-detail-grid">
+      <article class="arena-feature-card">
+        <span class="eyebrow">🏆 Temporada ativa</span>
+        <h2>Copa do Mundo 2026</h2>
+        <p>Cadastre os jogos e libere os palpites para sua galera.</p>
 
-</a>
+        <button class="btn btn-primary" data-seed-games>
+          Carregar jogos da próxima fase
+        </button>
 
-<h1 data-arena-name>
+        <div class="auth-feedback" data-seed-feedback></div>
+      </article>
 
-Carregando Arena...
+      <article class="arena-feature-card">
+        <span class="eyebrow">👥 Participantes</span>
+        <h2 data-members-count>--</h2>
+        <p>Participantes cadastrados nesta Arena.</p>
+      </article>
+    </section>
 
-</h1>
+    <section class="arena-section">
+      <div class="section-heading">
+        <span class="eyebrow">⚽ Jogos</span>
+        <h2>Próximas partidas</h2>
+        <p>Os participantes poderão registrar palpites antes do início dos jogos.</p>
+      </div>
 
-<p>
+      <div data-games-list class="games-list">
+        Carregando jogos...
+      </div>
+    </section>
+  </main>
 
-Sua galera vai competir aqui.
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-</p>
-
-</header>
-
-<section class="competition-card">
-
-<div>
-
-<span class="eyebrow">
-
-🏆 TEMPORADA
-
-</span>
-
-<h2>
-
-Copa do Mundo 2026
-
-</h2>
-
-<p>
-
-A próxima fase começa em poucos dias.
-
-Hora de registrar seus palpites.
-
-</p>
-
-</div>
-
-<button
-class="btn btn-primary"
-data-open-games>
-
-Ver Jogos
-
-</button>
-
-</section>
-
-<section
-class="participants-card">
-
-<h3>
-
-Participantes
-
-</h3>
-
-<div
-data-members>
-
-Carregando...
-
-</div>
-
-</section>
-
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-<script src="js/firebase.js"></script>
-
-<script src="js/arena.js"></script>
-
+  <script src="js/firebase.js"></script>
+  <script src="js/arena.js"></script>
 </body>
-
 </html>
