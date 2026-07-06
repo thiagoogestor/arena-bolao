@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Arena</title>
+
+<link rel="stylesheet"
+href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="arena-page">
+
+<header class="arena-header">
+
+<a href="dashboard.html"
+class="back-button">
+
+← Minhas Arenas
+
+</a>
+
+<h1 data-arena-name>
+
+Carregando Arena...
+
+</h1>
+
+<p>
+
+Sua galera vai competir aqui.
+
+</p>
+
+</header>
+
+<section class="competition-card">
+
+<div>
+
+<span class="eyebrow">
+
+🏆 TEMPORADA
+
+</span>
+
+<h2>
+
+Copa do Mundo 2026
+
+</h2>
+
+<p>
+
+A próxima fase começa em poucos dias.
+
+Hora de registrar seus palpites.
+
+</p>
+
+</div>
+
+<button
+class="btn btn-primary"
+data-open-games>
+
+Ver Jogos
+
+</button>
+
+</section>
+
+<section
+class="participants-card">
+
+<h3>
+
+Participantes
+
+</h3>
+
+<div
+data-members>
+
+Carregando...
+
+</div>
+
+</section>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script src="js/firebase.js"></script>
+
+<script src="js/arena.js"></script>
+
+</body>
+
+</html>
