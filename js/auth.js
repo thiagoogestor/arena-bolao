@@ -82,3 +82,4 @@ googleButton.addEventListener("click", async function () {
     showFeedback(`Erro Google: ${error.code}`, "error");
   }
 });
+  
